@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
@@ -27,7 +26,7 @@ import org.splitties.compose.oclock.LocalIsAmbient
 import org.splitties.compose.oclock.LocalTime
 import org.splitties.compose.oclock.OClockCanvas
 import org.splitties.compose.oclock.sample.WatchFacePreview
-import org.splitties.compose.oclock.sample.WearPreviewSizes
+import org.splitties.compose.oclock.sample.WearPreviewSizesProvider
 import org.splitties.compose.oclock.sample.elements.SinusoidalCrown
 import org.splitties.compose.oclock.sample.elements.clockHand
 import org.splitties.compose.oclock.sample.elements.setToHeart
@@ -240,7 +239,7 @@ private fun HeartHourPips() {
 @WatchFacePreview
 @Composable
 private fun ComposeFanClockPreview(
-    @PreviewParameter(WearPreviewSizes::class) size: Dp
+    @PreviewParameter(WearPreviewSizesProvider::class) size: Dp
 ) = WatchFacePreview(size) {
     ComposeFanClock()
 }

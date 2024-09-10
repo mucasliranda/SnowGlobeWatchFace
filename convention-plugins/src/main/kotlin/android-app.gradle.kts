@@ -1,9 +1,9 @@
+import de.fayard.refreshVersions.core.versionFor
 import java.io.FileNotFoundException
 
 plugins {
     kotlin("android")
     id("com.android.application")
-    kotlin("plugin.compose")
 }
 
 android {
@@ -60,6 +60,7 @@ android {
         }
     }
     kotlinOptions {
+        freeCompilerArgs += "-opt-in=splitties.experimental.ExperimentalSplittiesApi"
         jvmTarget = "1.8"
         freeCompilerArgs += "-Xcontext-receivers"
     }
@@ -68,6 +69,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     buildFeatures.compose = true
+    composeOptions {
+        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.compiler)
+    }
     packagingOptions.resources {
         excludes += setOf(
             "META-INF/ASL2.0",

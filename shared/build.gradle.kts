@@ -1,8 +1,9 @@
 @file:Suppress("UnstableApiUsage")
 
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
     id("android-lib")
-    kotlin("plugin.compose")
     alias(libs.plugins.roborazzi)
 }
 
@@ -17,6 +18,9 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.compiler)
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
@@ -34,8 +38,8 @@ dependencies {
         libs.compose.oclock.core()
         Google.android.playServices.wearOS()
 
+        platform(AndroidX.compose.bom)
         AndroidX.compose.ui()
-        AndroidX.compose.ui.graphics()
         AndroidX.compose.ui.toolingPreview()
         AndroidX.compose.ui.text.googleFonts()
 

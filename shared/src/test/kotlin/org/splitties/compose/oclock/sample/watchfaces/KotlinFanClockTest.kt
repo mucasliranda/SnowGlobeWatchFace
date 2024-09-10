@@ -5,6 +5,6 @@ import androidx.compose.runtime.Composable
 class KotlinFanClockTest(device: WearDevice) : DeviceClockScreenshotTest(device) {
     @Composable
     override fun Clock() {
-        KotlinFanClock()
+        com.louiscad.composeoclockplayground.watchface.KotlinFanClock()
     }
 }

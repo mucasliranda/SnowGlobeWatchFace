@@ -24,20 +24,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.watchface.complications.data.ComplicationData
 import kotlinx.coroutines.flow.*
-import org.splitties.compose.oclock.ExperimentalComposeOClockApi
 import org.splitties.compose.oclock.OClockRootCanvas
-import org.splitties.compose.oclock.PreviewTime
 
-class WearPreviewSizes : PreviewParameterProvider<Dp> {
+class WearPreviewSizesProvider : PreviewParameterProvider<Dp> {
     override val values: Sequence<Dp> = sequenceOf(
         WatchFacePreview.Size.small,
         WatchFacePreview.Size.large
-    )
-}
-
-class WearSmallest : PreviewParameterProvider<Dp> {
-    override val values: Sequence<Dp> = sequenceOf(
-        WatchFacePreview.Size.small
     )
 }
 
@@ -48,7 +40,7 @@ class WearSmallest : PreviewParameterProvider<Dp> {
  * @WatchFacePreview
  * @Composable
  * private fun MyFunClockPreview(
- *     @PreviewParameter(WearPreviewSizes::class) size: Dp
+ *     @PreviewParameter(WearPreviewSizesProvider::class) size: Dp
  * ) = WatchFacePreview(size) {
  *     MyFunClock()
  * }
@@ -65,8 +57,6 @@ annotation class WatchFacePreview {
 @Composable
 fun WatchFacePreview(
     size: Dp,
-    @OptIn(ExperimentalComposeOClockApi::class)
-    previewTime: PreviewTime.Config = PreviewTime.rememberConfig(),
     content: @Composable (complicationData: Map<Int, StateFlow<ComplicationData>>) -> Unit
 ) {
     val spacing = 8.dp
@@ -90,13 +80,11 @@ fun WatchFacePreview(
         val modifier = Modifier.requiredSize(size).clip(CircleShape)
         OClockRootCanvas(
             modifier = modifier,
-            previewTime = previewTime,
             isAmbientFlow = isAmbientFlow
         ) { content(it) }
         AnimatedVisibility(touched.not()) {
             OClockRootCanvas(
                 modifier = modifier,
-                previewTime = previewTime,
                 isAmbientFlow = remember { MutableStateFlow(true) }
             ) { content(it) }
         }

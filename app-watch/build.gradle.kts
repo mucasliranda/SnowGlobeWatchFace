@@ -24,6 +24,7 @@ dependencies {
         libs.compose.oclock.watchface.renderer()
         AndroidX.wear.watchFace.editor()
 
+        platform(AndroidX.compose.bom)
         AndroidX.wear.compose.material()
         AndroidX.wear.compose.foundation()
         AndroidX.activity.compose()
@@ -33,9 +34,11 @@ dependencies {
         Splitties.toast()
     }
     androidTestImplementation {
+        platform(AndroidX.compose.bom)
         AndroidX.compose.ui.testJunit4()
     }
     debugImplementation {
+        platform(AndroidX.compose.bom)
         AndroidX.compose.ui.tooling()
         AndroidX.compose.ui.testManifest()
     }

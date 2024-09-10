@@ -13,9 +13,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.asAndroidPath
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.DrawStyle
+import androidx.compose.ui.graphics.drawscope.DrawTransform
 import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.translate
-import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
@@ -170,6 +169,32 @@ private fun TextAlign.toPaintAlign(layoutDirection: LayoutDirection): Paint.Alig
     else -> TextAlign.Start.toPaintAlign(layoutDirection)
 }
 
+//TODO: Remove when https://issuetracker.google.com/issues/318384666 is fixed.
+inline fun DrawScope.rotate(
+    degrees: Float,
+    pivot: Offset = center,
+    block: DrawScope.() -> Unit
+) = withTransform({ rotate(degrees, pivot) }, block)
+
+//TODO: Remove when https://issuetracker.google.com/issues/318384666 is fixed.
+inline fun DrawScope.withTransform(
+    transformBlock: DrawTransform.() -> Unit,
+    drawBlock: DrawScope.() -> Unit
+) = with(drawContext) {
+    // Transformation can include inset calls which change the drawing area
+    // so cache the previous size before the transformation is done
+    // and reset it afterwards
+    val previousSize = size
+    canvas.save()
+    try {
+        transformBlock(transform)
+        drawBlock()
+    } finally {
+        canvas.restore()
+        size = previousSize
+    }
+}
+
 fun DrawScope.drawDrawable(
     drawable: Drawable,
     topLeft: Offset = Offset.Zero,
@@ -186,8 +211,4 @@ fun DrawScope.drawDrawable(
         bottom = bottom.toInt(),
     )
     drawable.draw(drawContext.canvas.nativeCanvas)
-}
-
-inline fun DrawScope.translate(offset: Offset, block: DrawScope.() -> Unit) {
-    translate(left = offset.x, top = offset.y, block = block)
 }

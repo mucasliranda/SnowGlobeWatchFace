@@ -3,7 +3,6 @@ package org.splitties.compose.oclock.sample.cleanthisbeforerelease.complications
 import android.app.PendingIntent
 import android.os.Build
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NoLiveLiterals
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.BlendMode
@@ -32,7 +31,6 @@ import org.splitties.compose.oclock.complications.rememberDrawableAsState
 import org.splitties.compose.oclock.complications.rememberMeasuredAsState
 import org.splitties.compose.oclock.sample.extensions.topCenterAsTopLeft
 
-@NoLiveLiterals // Because compilation fails otherwise. TODO: Report issue
 @Composable
 fun PixelWatchStyleComplication(
     complicationDataFlow: StateFlow<ComplicationData>,

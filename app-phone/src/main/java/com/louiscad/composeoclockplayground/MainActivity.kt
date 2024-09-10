@@ -16,6 +16,8 @@ import com.louiscad.composeoclockplayground.ui.theme.MyComposeOClockPlaygroundTh
 import org.splitties.compose.oclock.OClockRootCanvas
 import org.splitties.compose.oclock.sample.watchfaces.WatchFaceSwitcher
 
+import org.splitties.compose.oclock.internal.
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
